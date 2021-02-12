@@ -13,7 +13,7 @@ public class Cars {
     private final List<Car> cars;
 
     public Cars(final List<Car> cars) {
-        validateCars(cars);
+        validateCarNamesDuplicate(cars);
         this.cars = cars;
     }
 
@@ -41,7 +41,7 @@ public class Cars {
         return maxDistance;
     }
 
-    private void validateCars(List<Car> cars) {
+    private void validateCarNamesDuplicate(List<Car> cars) {
         Set<Car> set = new HashSet<>(cars);
         if (cars.size() > set.size()) {
             throw new IllegalArgumentException("[ERROR] 자동차 이름은 중복이 불가능합니다.");
