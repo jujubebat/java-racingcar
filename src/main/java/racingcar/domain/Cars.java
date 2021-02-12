@@ -5,25 +5,16 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 import racingcar.utils.RandomUtils;
 import racingcar.view.OutputView;
 
 public class Cars {
 
-    private final List<Car> cars = new ArrayList<>();
+    private final List<Car> cars;
 
-    public Cars(final List<Name> names) {
-        validateNames(names);
-        for (Name name : names) {
-            cars.add(new Car(name, Position.ZERO));
-        }
-    }
-
-    public Cars(final List<Name> names, final List<Position> positions) {
-        validateNames(names);
-        IntStream.range(0, names.size())
-            .forEach(i -> cars.add(new Car(names.get(i), positions.get(i))));
+    public Cars(final List<Car> cars) {
+        validateCars(cars);
+        this.cars = cars;
     }
 
     public List<Car> getWinners() {
@@ -50,14 +41,9 @@ public class Cars {
         return maxDistance;
     }
 
-    private void validateNames(List<Name> names) {
-        int originCount = names.size();
-        Set<Name> set = new HashSet<>();
-
-        for (Name name : names) {
-            set.add(name);
-        }
-        if (originCount > set.size()) {
+    private void validateCars(List<Car> cars) {
+        Set<Car> set = new HashSet<>(cars);
+        if (cars.size() > set.size()) {
             throw new IllegalArgumentException("[ERROR] 자동차 이름은 중복이 불가능합니다.");
         }
     }
