@@ -18,10 +18,13 @@ public class CarsTest {
     @Test
     @DisplayName("우승자 선정이 잘 되는지 테스트")
     public void check_get_winners() {
-        List<Name> names = Arrays.asList(new Name("test1"), new Name("test2"), new Name("test3"));
-        List<Position> positions = Arrays
-            .asList(new Position(7), new Position(11), new Position(4));
-        Cars cars = new Cars(names, positions);
+        Cars cars = new Cars(
+            Arrays.asList(
+                new Car("test1", 7),
+                new Car("test2", 11),
+                new Car("test3", 4)
+            )
+        );
 
         assertThat(cars.getWinners().get(0).getName()).isEqualTo("test2");
     }
@@ -29,9 +32,13 @@ public class CarsTest {
     @Test
     @DisplayName("자동차 이름 중복 예외 발생 테스트")
     public void check_name_duplicate_exception() {
-        List<Name> names = Arrays.asList(new Name("test1"), new Name("test2"), new Name("test1"));
+        List<Car> cars = Arrays.asList(
+            new Car("test1"),
+            new Car("test1"),
+            new Car("test3")
+        );
 
-        assertThatThrownBy(() -> new Cars(names))
+        assertThatThrownBy(() -> new Cars(cars))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("[ERROR] 자동차 이름은 중복이 불가능합니다.");
     }
