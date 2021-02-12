@@ -14,7 +14,7 @@ public class Cars {
 
     public Cars(final List<Car> cars) {
         validateCarNamesDuplicate(cars);
-        this.cars = cars;
+        this.cars = new ArrayList<>(cars);
     }
 
     public List<Car> getWinners() {
